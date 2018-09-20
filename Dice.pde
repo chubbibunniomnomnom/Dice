@@ -1,13 +1,26 @@
-Die d1 = new Die(20, 20);
+
 void setup()
 {
 	noLoop();
-  size(100, 100);
+  size(500, 500);
 }
 void draw()
 {
-	background (255);
-  d1.show();
+	background (47, 104, 196);
+  int sum = 0;
+  for (int c = 20; c<500; c = c+100){
+    for (int ys = 40; ys<300; ys = ys+100){
+      Die d = new Die(c, ys);
+      d.roll();
+      d.show();
+      sum = sum + d.rollNum;
+    }
+  }
+  textSize(30);
+  fill(0);
+  text("TOTAL: " + sum, 170, 440);
+  if (mousePressed == true){
+  }
 }
 void mousePressed()
 {
@@ -16,48 +29,62 @@ void mousePressed()
 class Die //models one single dice cube
 {
 	int xPos, yPos, rollNum;//variable declarations here
-	
+	int hx,tx,ttx,fx,tfx,ty,hy,tty,fy,tfy; 
 	Die(int x, int y) //constructor
 	{		
-  xPos = x;
+  xPos = x; 
   yPos = y;
-  //variable initializations here
+  hx = xPos+30; // 1/2x
+  tx = xPos+20; // 1/3x
+  ttx = xPos +40; // 2/3x
+  fx = xPos+ 15; // 1/4x
+  tfx = xPos+45; // 3/4x
+  ty = yPos +20; // 1/3y
+  hy = yPos +30; // 1/2y
+  tty = yPos +40; // 2/3y
+  fy = yPos + 15; // 1/4y
+  tfy = yPos +45; // 3/4y
 	}
 	void roll(){
-    rollNum= (int) (Math.random()*6)+1;
+    rollNum = (int)(Math.random()*6)+1;
 	}
 	void show(){
-    int 12x = xPos+30;
-    int 13x = xPos+20
-    int 23x = xPos +40;
-    int 14x = xPos+ 15;
-    int 34x = xPos+45;
-    int 13y = yPos +20;
-    int 12y = yPos +30;
-    int 23y = yPos +40;
-    int 14y = yPos + 15;
-    int 34y = yPos +45;
+    fill(255);
     rect(xPos, yPos, 60, 60, 5);
+    fill(0);
     if (rollNum == 1){
-      ellipse(12x, 12y, 2, 2);
+      ellipse(hx, hy, 4, 4);
     }
     if (rollNum == 2){
-      ellipse(12x,13y, 2,2);
-      ellipse(12x, 23y, 2,2);
+      ellipse(hx, ty, 4, 4);
+      ellipse(hx, tty, 4, 4);
     }
     if (rollNum == 3){
-      ellipse(14x, 14y, 2,2);
-      ellipse(12x, 12y, 2,2);
-      ellipse(34x, 34y, 2,2);
+      ellipse(fx, fy, 4, 4);
+      ellipse(hx, hy, 4, 4);
+      ellipse(tfx, tfy, 4, 4);
     }
     if (rollNum == 4){
-      ellipse(13x, 13y, 2, 2);
-      ellipse(23x, 23y, 2, 2);
-      ellipse(23x, 13y, 2, 2);
-      ellipse(23x, 23y, 2, 2);
+      ellipse(tx, ty, 4, 4);
+      ellipse(ttx, tty, 4, 4);
+      ellipse(ttx, ty, 4, 4);
+      ellipse(tx, tty, 4, 4);
     }
     if (rollNum == 5){
-      ellipse(14x, 14y, 2, 2);
+      ellipse(fx, fy, 4, 4);
+      ellipse(tfx, fy, 4, 4);
+      ellipse(hx, hy, 4, 4);
+      ellipse(fx, tfy, 4, 4);
+      ellipse(tfx, tfy, 4, 4);
+    }
+    if (rollNum == 6){
+      ellipse(tx, fy, 4, 4);
+      ellipse(tx, hy, 4, 4);
+      ellipse(tx, tfy, 4, 4);
+      ellipse(ttx, fy, 4, 4);
+      ellipse(ttx, hy, 4, 4);
+      ellipse(ttx, tfy, 4, 4);
+    }
       
 	}
 }
